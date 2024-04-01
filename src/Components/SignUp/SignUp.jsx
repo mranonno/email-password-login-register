@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
@@ -30,6 +33,9 @@ const SignUp = () => {
     //create user
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
+        sendEmailVerification(auth.currentUser).then(() => {
+          alert("Email verification sent!");
+        });
         setSignedUser(result.user);
         setSuccess("User successfully create");
       })
@@ -53,7 +59,7 @@ const SignUp = () => {
         <legend> Password</legend>
         <div className="relative">
           <input
-            className="border-2 mb-4 py-3 px-4 rounded-lg"
+            className="border-2 py-3 px-4 rounded-lg"
             type={showPassword ? "text" : "password"}
             name="password"
             required
@@ -70,7 +76,7 @@ const SignUp = () => {
         <label htmlFor="terms"> Accept our terms & condition</label>
         <br />
         <input
-          className="border-2 py-3 px-4 rounded-lg"
+          className="border-2 mt-2 py-3 px-4 rounded-lg"
           type="submit"
           value="Sign Up"
         />

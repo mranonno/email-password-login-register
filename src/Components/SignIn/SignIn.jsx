@@ -43,7 +43,8 @@ const SignIn = () => {
   {
     /***** forgot function function handle *****/
   }
-  const handleForgotPassword = () => {
+    const handleForgotPassword = () => {
+      console.log('success');
     const email = emailRef.current.value;
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -79,7 +80,9 @@ const SignIn = () => {
             className="absolute top-5 right-4"
           >
             {showPassword ? <FaEyeSlash /> : <FaRegEye />}
-          </span>
+                  </span>
+                  <br />
+          <Link onClick={handleForgotPassword}>Forgot your password?</Link>
         </div>
         <br />
         <input
@@ -87,7 +90,6 @@ const SignIn = () => {
           type="submit"
           value="Log In"
         />
-        <Link onClick={handleForgotPassword}>Forgot your password?</Link>
       </form>
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">{success}</p>}
